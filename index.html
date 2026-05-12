@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Speak Up for Arcadia Ballpark</title>
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green:   #1a4a2e;
+    --green2:  #2d6e47;
+    --gold:    #c8973a;
+    --cream:   #f7f3ec;
+    --warm:    #ede7db;
+    --text:    #1c1a17;
+    --muted:   #6b6358;
+    --red:     #8b2c2c;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--text);
+    font-family: Georgia, 'Times New Roman', serif;
+    font-weight: 300;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--green);
+    color: var(--cream);
+    padding: 56px 24px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 40px,
+      rgba(255,255,255,0.025) 40px,
+      rgba(255,255,255,0.025) 41px
+    );
+    pointer-events: none;
+  }
+  .hero-tag {
+    display: inline-block;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    padding: 5px 14px;
+    margin-bottom: 22px;
+  }
+  .hero h1 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(28px, 6vw, 52px);
+    font-weight: 900;
+    line-height: 1.15;
+    color: #fff;
+    max-width: 700px;
+    margin: 0 auto 16px;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .hero-sub {
+    font-size: 16px;
+    color: rgba(247,243,236,0.75);
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  /* ── MAIN ── */
+  .container {
+    max-width: 740px;
+    margin: 0 auto;
+    padding: 0 20px 60px;
+  }
+
+  /* ── INTRO CARD ── */
+  .intro {
+    background: var(--warm);
+    border-left: 4px solid var(--gold);
+    padding: 24px 28px;
+    margin: 36px 0 28px;
+    font-size: 15px;
+    color: var(--text);
+  }
+  .intro strong { font-weight: 600; }
+
+  /* ── STEPS ── */
+  .steps {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+  }
+  .step {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #fff;
+    border: 1px solid #ddd6cc;
+    border-radius: 4px;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--green);
+    flex: 1;
+    min-width: 160px;
+  }
+  .step-num {
+    width: 24px;
+    height: 24px;
+    background: var(--green);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  /* ── EMAIL PREVIEW ── */
+  .email-card {
+    background: #fff;
+    border: 1px solid #ddd6cc;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+  .email-header {
+    background: var(--green);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .email-header-label {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    font-weight: 600;
+  }
+  .email-header-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+  }
+  .email-meta {
+    padding: 14px 20px;
+    border-bottom: 1px solid #ede7db;
+    font-size: 12.5px;
+    color: var(--muted);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .email-meta span { font-weight: 600; color: var(--text); }
+  .email-body {
+    padding: 20px;
+    font-size: 14px;
+    line-height: 1.75;
+    color: var(--text);
+    max-height: 340px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+  }
+  .email-body::-webkit-scrollbar { width: 6px; }
+  .email-body::-webkit-scrollbar-track { background: var(--warm); }
+  .email-body::-webkit-scrollbar-thumb { background: #c5b99a; border-radius: 3px; }
+  .email-body b { font-weight: 600; }
+
+  /* ── SEND BUTTON ── */
+  .send-wrap {
+  }
+  .btn-send {
+    display: block;
+    width: 100%;
+    background: var(--green);
+    color: #fff;
+    border: none;
+    padding: 18px 24px;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: background 0.2s, transform 0.15s;
+    text-align: center;
+    text-decoration: none;
+  }
+  .btn-send:hover { background: var(--green2); transform: translateY(-1px); }
+  .btn-send:active { transform: translateY(0); }
+  .btn-send .arrow { margin-left: 8px; display: inline-block; transition: transform 0.2s; }
+  .btn-send:hover .arrow { transform: translateX(4px); }
+
+  .send-note {
+    font-size: 12px;
+    color: var(--muted);
+    text-align: center;
+    margin-top: 10px;
+    line-height: 1.5;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid #ddd6cc;
+    font-size: 12.5px;
+    color: var(--muted);
+    text-align: center;
+    line-height: 1.6;
+  }
+
+  .two-btn {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .btn-copy {
+    background: var(--gold) !important;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 18px;
+    font-weight: 700;
+  }
+  .btn-copy:hover { background: #b8862e !important; }
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 20px 0;
+  }
+  .send-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 14px;
+    color: var(--text);
+  }
+  .send-num {
+    width: 24px;
+    height: 24px;
+    background: var(--gold);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .address-box {
+    background: #fff;
+    border: 1px solid #ddd6cc;
+    border-radius: 4px;
+    padding: 16px 18px;
+    margin: 4px 0 16px;
+  }
+  .address-label {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .address-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .address-text {
+    font-size: 12.5px;
+    color: var(--text);
+    line-height: 1.5;
+    flex: 1;
+    word-break: break-all;
+  }
+  .copy-mini {
+    background: var(--green);
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 4px 10px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: background 0.2s;
+  }
+  .copy-mini:hover { background: var(--green2); }
+  .copy-mini.copied { background: var(--gold); }
+
+
+  }
+
+  @media (max-width: 480px) {
+    .steps { flex-direction: column; }
+    .email-body { max-height: 260px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-tag">Community Action</div>
+  <h1>Help Protect <em>Arcadia Ballpark</em></h1>
+  <p class="hero-sub">The proposed FY2026-27 city budget would fundamentally change how Arcadia operates. Your voice matters. Send an email to City Council in under a minute.</p>
+</div>
+
+<div class="container">
+
+  <div class="intro">
+    <strong>What's at stake:</strong> The proposed budget would eliminate Arcadia's dedicated on-site staff, end city-managed leagues, and shift maintenance and reservations to a centralized citywide system. This affects every user group at the facility, including youth baseball, senior softball, competitive fastpitch, and adult recreational leagues.
+  </div>
+
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div> Copy the message body</div>
+    <div class="step"><div class="step-num">2</div> Open pre-addressed email</div>
+    <div class="step"><div class="step-num">3</div> Paste and hit Send</div>
+  </div>
+
+  <div style="background:#fff8ee; border:1px solid #c8973a; border-radius:4px; padding:14px 18px; margin-bottom:24px; font-size:13.5px; color:#4a3a1a;">
+    <strong style="color:#8b6320;">Tip: Personalized emails have greater impact.</strong> Before sending, consider adding a sentence about how you personally use Arcadia — your league, your kids, how long you've been coming. Council members pay closer attention when they know a constituent has a real connection to the facility.
+  </div>
+
+  <div class="email-card">
+    <div class="email-header">
+      <span class="email-header-label">Pre-filled Message</span>
+      <span class="email-header-title">May 11th: Agenda Item - Neighborhood Services Budget Study Session</span>
+    </div>
+    <div class="email-meta">
+      <div><span>To:</span> Mayor Mahan, City Manager Maguire, City Council (all districts), City Clerk</div>
+      <div><span>CC:</span> Parks &amp; Recreation Commission Liaison</div>
+    </div>
+    <div class="email-body">Dear Mayor Mahan, City Manager Maguire, and Members of the City Council,
+
+I am writing as a participant in the City-managed adult slow pitch softball league at Arcadia Ballpark to oppose the proposed FY2026-27 budget changes that would eliminate the facility's dedicated on-site staff and end the city-run league program.
+
+I appreciated Councilmember Candelas' engagement during yesterday's Budget Study Session and his focus on ensuring youth baseball remains a priority under the new model. That priority is well-placed. But the proposed transition raises serious concerns that go beyond youth programming.
+
+<b>The private adult league market is not a reliable safety net.</b> The local adult slow pitch league has changed operators three times in roughly ten years, from Dynamic Sports to ZOG to Volo. Volo currently charges approximately $1,100 per team for 6 guaranteed games and Twin Creeks charges around $1,400 for 8 games. The city-managed league at Arcadia costs $900 for 10 guaranteed games. That is not a comparable alternative, and unlike a city-managed program, there is nothing requiring a private operator to stay.
+
+<b>Public options are disappearing.</b> Sunnyvale no longer offers adult softball. Palo Alto has been unable to staff a league for several seasons. Columbus Park, another Measure-funded facility, is losing its softball fields in its redesign. Arcadia is one of the last remaining publicly managed options for adult slow pitch in the South Bay.
+
+<b>The maintenance commitment needs to be formalized.</b> The Parks and Recreation Director indicated that additional resources could be directed to Arcadia under the new model. A verbal commitment made during a budget study session is not a policy commitment. Deferred maintenance at a heavily used multi-field facility is a safety and liability issue for the City, not just a quality concern.
+
+<b>The City's own cost recovery policy supports keeping this program.</b> Arcadia is classified as a Category 2 facility, meaning it is not required to fully recover its costs through fees. That classification exists for facilities that provide broad community access where affordable alternatives do not exist. The proposed change eliminates a program the City's own policy says it does not need to fully fund.
+
+<b>Low attendance at the budget study session does not reflect low community interest.</b> Budget study sessions are held on weekday mornings when most working adults and parents cannot attend. California's SB 707, signed into law in October 2025, will require the City to provide two-way audiovisual access to all public meetings starting July 1, 2026, but that requirement does not take effect until after this budget process concludes. In the meantime, the community has found other ways to be heard. Arcadia supporters have submitted public comments in numbers that exceed those who spoke up for the California Room. The absence of bodies in seats on a Tuesday morning is not silence.
+
+We ask the Mayor and City Council to reject this proposal and preserve Arcadia's current operating model. What exists today took years to build and will not be easily rebuilt once it is gone.
+
+Thank you for your time and public service.
+
+A Concerned Arcadia Supporter</div>
+  </div>
+
+  <div class="send-wrap">
+
+    <div class="two-btn">
+      <button class="btn-send btn-copy" id="copyBtn">Step 1: Copy Message Body <span class="arrow">→</span></button>
+      <a class="btn-send" id="openBtn" href="#">Step 2: Open Pre-Addressed Email <span class="arrow">→</span></a>
+    </div>
+
+    <div id="copyConfirm" style="display:none; background:#1a4a2e; color:#fff; text-align:center; padding:13px; border-radius:3px; font-size:15px; font-weight:600; margin-top:8px;">
+      Copied! Go to your email app and paste into the body.
+    </div>
+
+    <div class="send-steps">
+      <div class="send-step"><span class="send-num">1</span><span>Tap Step 1 to copy the message body to your clipboard</span></div>
+      <div class="send-step"><span class="send-num">2</span><span>Tap Step 2 — your email app will open with all addresses and subject pre-filled</span></div>
+      <div class="send-step"><span class="send-num">3</span><span>Paste the message into the body and hit Send</span></div>
+    </div>
+
+    <p class="send-note">Your email will come from your own account, which carries more weight as a constituent message.</p>
+  </div>
+
+  <div class="footer">
+    This page was created by concerned Arcadia Ballpark users. It is not affiliated with the City of San Jose.<br>
+    Budget Study Session public comment period is open now.
+  </div>
+
+</div>
+
+<script>
+  const TO = [
+    "webmaster.manager@sanjoseca.gov",
+    "mayor@sanjoseca.gov",
+    "city.clerk@sanjoseca.gov",
+    "District1@sanjoseca.gov",
+    "district2@sanjoseca.gov",
+    "District3@sanjoseca.gov",
+    "District4@sanjoseca.gov",
+    "District5@sanjoseca.gov",
+    "District6@sanjoseca.gov",
+    "District7@sanjoseca.gov",
+    "District8@sanjoseca.gov",
+    "District9@sanjoseca.gov",
+    "District10@sanjoseca.gov"
+  ].join(",");
+
+  const CC  = "PRCLiaison@sanjoseca.gov,Jon.cicirelli@sanjoseca.gov,Domingo.candelas@sanjoseca.gov";
+  const BCC = "sjsaferstreets@gmail.com";
+  const SUBJECT = "May 11th: Agenda Item - Neighborhood Services Budget Study Session";
+
+  const BODY = `Dear Mayor Mahan, City Manager Maguire, and Members of the City Council,
+
+I am writing as a participant in the City-managed adult slow pitch softball league at Arcadia Ballpark to oppose the proposed FY2026-27 budget changes that would eliminate the facility's dedicated on-site staff and end the city-run league program.
+
+I appreciated Councilmember Candelas' engagement during yesterday's Budget Study Session and his focus on ensuring youth baseball remains a priority under the new model. That priority is well-placed. But the proposed transition raises serious concerns that go beyond youth programming.
+
+The private adult league market is not a reliable safety net. The local adult slow pitch league has changed operators three times in roughly ten years, from Dynamic Sports to ZOG to Volo. Volo currently charges approximately $1,100 per team for 6 guaranteed games and Twin Creeks charges around $1,400 for 8 games. The city-managed league at Arcadia costs $900 for 10 guaranteed games. That is not a comparable alternative, and unlike a city-managed program, there is nothing requiring a private operator to stay.
+
+Public options are disappearing. Sunnyvale no longer offers adult softball. Palo Alto has been unable to staff a league for several seasons. Columbus Park, another Measure-funded facility, is losing its softball fields in its redesign. Arcadia is one of the last remaining publicly managed options for adult slow pitch in the South Bay.
+
+The maintenance commitment needs to be formalized. The Parks and Recreation Director indicated that additional resources could be directed to Arcadia under the new model. A verbal commitment made during a budget study session is not a policy commitment. Deferred maintenance at a heavily used multi-field facility is a safety and liability issue for the City, not just a quality concern.
+
+The City's own cost recovery policy supports keeping this program. Arcadia is classified as a Category 2 facility, meaning it is not required to fully recover its costs through fees. That classification exists for facilities that provide broad community access where affordable alternatives do not exist. The proposed change eliminates a program the City's own policy says it does not need to fully fund.
+
+Low attendance at the budget study session does not reflect low community interest. Budget study sessions are held on weekday mornings when most working adults and parents cannot attend. California's SB 707, signed into law in October 2025, will require the City to provide two-way audiovisual access to all public meetings starting July 1, 2026, but that requirement does not take effect until after this budget process concludes. In the meantime, the community has found other ways to be heard. Arcadia supporters have submitted public comments in numbers that exceed those who spoke up for the California Room. The absence of bodies in seats on a Tuesday morning is not silence.
+
+We ask the Mayor and City Council to reject this proposal and preserve Arcadia's current operating model. What exists today took years to build and will not be easily rebuilt once it is gone.
+
+Thank you for your time and public service.
+
+A Concerned Arcadia Supporter`
+
+  document.getElementById("openBtn").addEventListener("click", function(e) {
+    e.preventDefault();
+    const mailto = `mailto:${TO}?cc=${encodeURIComponent(CC)}&bcc=${encodeURIComponent(BCC)}&subject=${encodeURIComponent(SUBJECT)}`;
+    window.location.href = mailto;
+  });
+
+  document.getElementById("copyBtn").addEventListener("click", function() {
+    navigator.clipboard.writeText(BODY).then(() => {
+      document.getElementById("copyConfirm").style.display = "block";
+      this.textContent = "Copied!";
+      this.style.background = "var(--gold)";
+      setTimeout(() => {
+        document.getElementById("copyConfirm").style.display = "none";
+        this.innerHTML = 'Copy Message to Clipboard <span class="arrow">→</span>';
+        this.style.background = "";
+      }, 3000);
+    });
+  });
+
+  function copyText(id, btn) {
+    const text = document.getElementById(id).textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = "Copied!";
+      btn.classList.add("copied");
+      setTimeout(() => {
+        btn.textContent = "Copy";
+        btn.classList.remove("copied");
+      }, 2000);
+    });
+  }
+</script>
+</body>
+</html>
